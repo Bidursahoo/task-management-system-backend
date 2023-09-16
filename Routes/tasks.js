@@ -28,6 +28,20 @@ router.post("/" , [auth , admin ] , (req,res)=>{
 
 
 //update status of task 
-router.put()
+router.put("/:id" , [auth] , (req,res)=>{
+    const { error } = validate(req.body);
+    if (error) return res.status(400).send({ message: error.details[0].message });
+    Task.findByIdAndUpdate(req.params.id, {$set:req.body},{new:true}).then((task)=>{
+        res.status(200).send({data:task})
+      })
+} )
+
+
+// get all task by id
+router.get("/:id" , auth , (req,res)=>{
+    Task.find({assignedTo:req.params.id}).then((tasks)=>{
+        res.status(200).send({data: tasks})
+    })
+})
 
 module.exports = router;
