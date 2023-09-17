@@ -9,8 +9,8 @@ const DataBaseConnect = require("./DataBaseConnectivity")
 const userRoutes = require("./Routes/user");
 const authRoutes = require("./Routes/auth");
 const tasksRoutes = require("./Routes/tasks");
-const port = process.env.PORT
-// const port = 3005;
+// const port = process.env.PORT
+const port = 3005;
 
 
 
