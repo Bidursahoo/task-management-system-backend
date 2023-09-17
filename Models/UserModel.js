@@ -35,6 +35,7 @@ const validate = (user) =>{
         name: joi.string().required(),
         email:joi.string().email().required(),
         password: passwordComplexity().required(),
+        isAdmin:joi.boolean()
     });
     return schema.validate(user);
 }

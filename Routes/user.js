@@ -63,10 +63,18 @@ router.get("/",admin,(req,res)=>{
 //update user by id
 
 router.put("/:id",[validObjectId,auth], (req,res)=>{
-    User.findByIdAndUpdate(req.params.id, {$set:req.body},{new:true}).select("-password-__v").then((user)=>{
+    User.findByIdAndUpdate(req.params.id, {$set:req.body},{new:true}).select("-email-password-__v").then((user)=>{
       res.status(200).send({data:user})
     })
   })
 
-  
+
+//promote user to admin
+
+router.put("/:id", [validObjectId , auth , admin] , (req,res)=>{
+  User.findByIdAndUpdate(req.params.id, {$set:req.body},{new:true}).select("-email-password-__v").then((user)=>{
+    res.status(200).send({data:user})
+  })
+})
+
 module.exports = router;
