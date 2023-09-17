@@ -40,7 +40,9 @@ router.put("/:id" , [auth , validObjectId] , (req,res)=>{
 
 // get all task for specific user
 router.get("/" , auth , (req,res)=>{
-    Task.find({assignedTo:req.user._id}).then((tasks)=>{
+    Task.find({assignedTo:req.user._id}).populate('assignedBy', 'name')
+    .populate('assignedTo', 'name')
+    .exec().then((tasks)=>{
         res.status(200).send({data: tasks})
     })
 })
