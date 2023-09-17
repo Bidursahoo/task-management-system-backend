@@ -60,6 +60,15 @@ router.get("/",admin,(req,res)=>{
 })
 
 
+//find user by id
+
+router.get("/:id" , auth ,(req,res)=>{
+  User.find({ _id:  req.params.id}).select("-password-__v").then((users)=>{
+    res.status(200).send({data:users.name})
+  })
+})
+
+
 //update user by id
 
 router.put("/:id",[validObjectId,auth], (req,res)=>{
