@@ -30,7 +30,7 @@ router.post("/" , [auth , admin ] , (req,res)=>{
 
 //update status of task for specific user 
 router.put("/:id" , [auth , validObjectId] , (req,res)=>{
-    const { error } = validate(req.body);
+    // const { error } = validate(req.body);
     if (error) return res.status(400).send({ message: error.details[0].message });
     Task.findByIdAndUpdate(req.params.id, {$set:req.body},{new:true}).then((task)=>{
         res.status(200).send({data:task})
