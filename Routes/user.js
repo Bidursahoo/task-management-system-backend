@@ -87,19 +87,12 @@ router.put("/:id", [validObjectId , auth , admin] , (req,res)=>{
 })
 
 
-//verify authentication token
+//get user profile
 
-router.get("/verify" , auth , (req,res)=>{
-  if (req.user) {
-      res.status(200).json({
-        message: "Token verified successfully",
-        name: req.user.name
-      });
-    } else {
-      res.status(401).json({
-        message: "Token verification failed",
-      });
-    }
+router.get("/profile" , auth , (req,res)=>{
+  User.findOne({ _id: req.user._id }).then((user)=>{
+    res.status(200).send({userInfo:user})
+  })
 })
 
 
