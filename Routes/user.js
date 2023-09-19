@@ -89,11 +89,17 @@ router.put("/:id", [validObjectId , auth , admin] , (req,res)=>{
 
 //get user profile
 
-router.get("/profile" , auth , (req,res)=>{
-  User.findOne({ _id: req.user._id }).then((user)=>{
-    res.status(200).send({userInfo:user})
-  })
-})
+router.post("/me", auth, (req, res) => {
+  try {
+    console.log("User ID:", req.user._id); // Log the user ID
+    User.findOne({ _id: req.user._id }).then((user) => {
+      res.status(200).send({ userInfo: user });
+    });
+  } catch (error) {
+    console.log(error)
+  }
+});
+
 
 
 
