@@ -51,7 +51,9 @@ router.get("/" , auth , (req,res)=>{
 //get all task of every user
 
 router.get("/" , [auth,admin] , (req,res)=>{
-    Task.find().then((tasks)=>{
+    Task.find().populate('assignedBy', 'name')
+    .populate('assignedTo', 'name')
+    .exec().then((tasks)=>{
         res.status(200).send({data: tasks})
     })
 })
